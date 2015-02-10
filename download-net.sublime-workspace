@@ -1,0 +1,449 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"z",
+				"z-index"
+			],
+			[
+				"max",
+				"max-width"
+			],
+			[
+				"wid",
+				"width"
+			],
+			[
+				"ligh",
+				"lightgrey"
+			],
+			[
+				"back",
+				"background-color"
+			],
+			[
+				"over",
+				"overflow-y"
+			],
+			[
+				"synta",
+				"syntax-highlighting"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 400.0,
+		"selected_items":
+		[
+			[
+				"gut",
+				"GitGutter: Compare Against HEAD"
+			],
+			[
+				"ena",
+				"Package Control: Enable Package"
+			],
+			[
+				"lis",
+				"Package Control: List Packages"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"git",
+				"Git: Toggle Annotations"
+			],
+			[
+				"ssper",
+				"Set Syntax: Perl"
+			],
+			[
+				"user",
+				"Preferences: Settings - User"
+			],
+			[
+				"lint",
+				"SublimeLinter: Lint This View"
+			],
+			[
+				"pret",
+				"HTMLPrettify"
+			],
+			[
+				"ssjson",
+				"Set Syntax: JSON"
+			],
+			[
+				"togg",
+				"SublimeLinter: Toggle Linter"
+			],
+			[
+				"ssjso",
+				"Set Syntax: JSON"
+			],
+			[
+				"sublime linter",
+				"SublimeLinter: Choose Mark Style"
+			],
+			[
+				"subl",
+				"Preferences: SublimeLinter Settings – User"
+			],
+			[
+				"sublime linter sett",
+				"Preferences: SublimeLinter Settings – Default"
+			],
+			[
+				"toggle lint",
+				"SublimeLinter: Toggle Linter"
+			],
+			[
+				"disa",
+				"SublimeLinter: Disable Linter"
+			],
+			[
+				"isnta",
+				"Package Control: Install Package"
+			],
+			[
+				"jshi",
+				"JSHint"
+			],
+			[
+				"ettings us",
+				"Preferences: Settings - User"
+			],
+			[
+				"ssjsc",
+				"Set Syntax: JavaScript Next"
+			],
+			[
+				"list",
+				"Package Control: List Packages"
+			],
+			[
+				"for",
+				"Format: Javascript"
+			],
+			[
+				"tra",
+				"Trailing Spaces: Delete Trailing Spaces"
+			],
+			[
+				"view",
+				"View In Browser"
+			],
+			[
+				"html",
+				"Snippet: html"
+			],
+			[
+				"ssht",
+				"Set Syntax: HTML"
+			],
+			[
+				"f",
+				"Format: Javascript"
+			],
+			[
+				"ssjs",
+				"Set Syntax: JavaScript Next"
+			],
+			[
+				"cssco",
+				"Run CSScomb"
+			],
+			[
+				"git ",
+				"Git: Blame"
+			],
+			[
+				"trai",
+				"Trailing Spaces: Delete Trailing Spaces"
+			],
+			[
+				"om",
+				"OmniMarkupPreviewer: Preview Current Markup in Browser"
+			],
+			[
+				"form",
+				"Format: Javascript"
+			],
+			[
+				"ssshe",
+				"Set Syntax: Shell Script (Bash)"
+			],
+			[
+				"sssh",
+				"Set Syntax: Shell Script (Bash)"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"settings use",
+				"Preferences: Settings - User"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"prefer",
+				"Preferences: Settings - User"
+			]
+		],
+		"width": 601.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+			"2 * 2",
+			"ls",
+			"a",
+			"a = \"hail\"",
+			"this",
+			"pwd",
+			"PWD",
+			"LS",
+			"import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/phelm/Code/download-net"
+	],
+	"file_history":
+	[
+		"/Users/phelm/Code/image-downloader/download-wget2.sh",
+		"/Users/phelm/Code/image-downloader/.gitignore",
+		"/Users/phelm/Code/Desktop2/frontend/main/css/style.css",
+		"/Users/phelm/Code/Desktop2/frontend/main/script/maps/maptoolbar.js",
+		"/Users/phelm/Code/Desktop2/frontend/main/script/share/social/AutographerDotComController.js",
+		"/Users/phelm/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/Users/phelm/Code/Desktop2/frontend/.jshintrc",
+		"/Users/phelm/Library/Application Support/Sublime Text 3/Packages/User/SublimeLinter.sublime-settings",
+		"/Users/phelm/Library/Application Support/Sublime Text 3/Packages/SublimeLinter/SublimeLinter.sublime-settings",
+		"/Users/phelm/.bashrc",
+		"/Users/phelm/.zshrc",
+		"/Users/phelm/Code/Desktop2/frontend/main/bower_components/jquery/build/jslint-check.js",
+		"/Users/phelm/Code/Desktop2/frontend/main/script/lib/crypto-sha1-hmac.js",
+		"/Users/phelm/Code/Desktop2/frontend/main/bower_components/underscore/CNAME",
+		"/Users/phelm/Code/Desktop2/frontend/main/script/cinema/bigphotoview.js",
+		"/Users/phelm/Code/Desktop2/frontend/main/script/settings/serversettings.js",
+		"/Users/phelm/Code/Desktop2/frontend/main/script/utils/backbone-extras/backbone-sync-errorhandler.js",
+		"/Users/phelm/Code/Desktop2/frontend/main/script/tagsView/tagsview.js",
+		"/Users/phelm/Code/Desktop2/frontend/main/script/ui/rightclickmenu.js",
+		"/Users/phelm/Code/Desktop2/frontend/main/script/tag/tagcontroller.js",
+		"/Users/phelm/Code/Desktop2/frontend/main/script/network/SocketAPI.js",
+		"/Users/phelm/Code/Desktop2/frontend/main/script/photo/photo.js",
+		"/Users/phelm/Code/Desktop2/frontend/main/script/photo/photocollection.js",
+		"/Users/phelm/Code/Desktop2/frontend/main/script/importer/folderImporterButton.js",
+		"/Users/phelm/Code/Desktop2/frontend/main/script/select/selectioncontroller.js",
+		"/Users/phelm/Code/divs/index.html",
+		"/Users/phelm/Code/Desktop2/frontend/main/script/utils/util.js",
+		"/Users/phelm/Code/Desktop2/frontend/app.sh",
+		"/Users/phelm/Code/JenkinsUpdater/add_update.rb",
+		"/Users/phelm/Code/Desktop2/frontend/main/script/ui/searchview.js",
+		"/Users/phelm/Code/Desktop2/frontend/main/script/ui/autocomplete.js",
+		"/Users/phelm/Library/Application Support/Sublime Text 3/Packages/HTML-CSS-JS Prettify/.jsbeautifyrc",
+		"/Users/phelm/Code/Desktop2/frontend/test/functional-harness.js",
+		"/Users/phelm/Code/nw2/tests/login.js",
+		"/Users/phelm/Code/wd1/index.js",
+		"/Users/phelm/Code/nw2/Nightwatch.js",
+		"/Users/phelm/Code/Desktop2/frontend/test/lib/wd-addons.js",
+		"/Users/phelm/Code/Desktop2/frontend/test/functional/4-calendar-view.js",
+		"/Users/phelm/Code/Desktop2/frontend/main/index.html",
+		"/Users/phelm/Code/Desktop2/frontend/main/script/settings/settingsview.js",
+		"/Users/phelm/Code/Desktop2/frontend/main/script/main.js",
+		"/Users/phelm/Code/Desktop2/frontend/main/script/navigation/navigationcontroller.js",
+		"/Users/phelm/.zpreztorc",
+		"/Users/phelm/.zprezto/modules/prompt/functions/prompt_steeef_setup",
+		"/Users/phelm/zprezto",
+		"/Users/phelm/.zprezto/init.zsh",
+		"/Users/phelm/.zlogin",
+		"/Users/phelm/Code/videoprocess/phil/package.json",
+		"/Users/phelm/.zlog"
+	],
+	"find":
+	{
+		"height": 25.0
+	},
+	"find_in_files":
+	{
+		"height": 91.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"slideshowSpeedView",
+			"speedOptionDiv",
+			"							that.progress = {status: i + \"/\" + toShare.photos.length, percent: i/toShare.photos.length * 100};\n\n							if (i < toShare.photos.length) {\n								sharePhoto(i);\n							} else {\n								that.progress = {status: \"Completed\", percent: 100};\n								toShare.success(that.baseWebUrl + \"/sequences/\" + seq.hashed_id);\n							}\n						},\n",
+			":",
+			"oauth",
+			"request_token",
+			"bigphoto",
+			"Postman",
+			"append",
+			"bigImage",
+			"UIImageClassifyUpdate",
+			"Classify All images",
+			"this.photo",
+			"photo",
+			"comparator",
+			"tagbuttondiv",
+			"get_image",
+			"clicked folder import yeah",
+			"Undistort image",
+			"hasBeenundistorted",
+			"lensCorrectionButtonDiv",
+			"bigimage",
+			"bigImage",
+			"setSkipTransition",
+			"searchResultsDiv",
+			"shadow",
+			"groupsButtonDiv",
+			"toolsViewDiv"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"",
+			"\\n",
+			""
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 25.0
+	},
+	"input":
+	{
+		"height": 38.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 116.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"project": "download-net.sublime-project",
+	"replace":
+	{
+		"height": 46.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"server",
+				"script/settings/serversettings.js"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+			[
+				"",
+				"~/Documents/sublime-projects/Desktop2.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 181.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
