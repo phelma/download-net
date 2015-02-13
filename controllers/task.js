@@ -11,7 +11,7 @@ exports.getTask = function(req, res) {
 
       res.json(task);
     });
-};
+}
 
 exports.getTaskById = function (req, res) {
   Task
@@ -20,7 +20,7 @@ exports.getTaskById = function (req, res) {
         res
           .status(404)
           .send(err);
-      };
+      }
       res.json(task);
     });
 };

@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "NODE_ENV=development node_modules/nodemon/bin/nodemon.js server.js",
-    "test": "NODE_ENV=test node_modules/mocha/bin/mocha tests/**.js"
+    "test": "NODE_ENV=test node_modules/mocha/bin/mocha tests/**.js",
+    "lint": "jshint *.js controllers/*.js models/*.js tests/*.js"
   },
   "author": "",
   "license": "ISC",

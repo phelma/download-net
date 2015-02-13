@@ -47,4 +47,4 @@ app.listen(app.get('port'));
 console.log('download-net server listening on port: ' + app.get('port'));
 
 // export for testing
-exports = module.exports = app;
+exports = module.exports = app
