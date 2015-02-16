@@ -7,6 +7,7 @@ var env = process.env.NODE_ENV || 'development';
 var config = require('./config.js')[env];
 
 var taskController = require('./controllers/task.js');
+var userController = require('./controllers/user.js');
 
 // Connect to DB
 mongoose.connect(config.db);
@@ -22,22 +23,27 @@ app.use(bodyParser.urlencoded({
 // Create our Express router
 var router = express.Router();
 
-// Initial dummy route for testing
-// http://localhost:3000/api
+// ROUTES
 router.route('/task')
   .get(taskController.getTask)
   .post(taskController.addTask);
+
+router.route('/task/all')
+  .get(taskController.getAllTasks)
+  .delete(taskController.deleteAllTasks);
 
 router.route('/task/:taskId')
   .get(taskController.getTaskById)
   .put(taskController.updateTask)
   .delete(taskController.deleteTask);
 
-router.route('/all')
-  .get(taskController.getAllTasks)
-  .delete(taskController.deleteAllTasks);
+router.route('/user/all')
+  .get(userController.getAllUsers)
+  .delete(userController.deleteAllUsers);
 
-// Register all our routes with /api
+router.route('/');
+
+// Register all our routes with /
 app.use('/', router);
 
 app.use(express.static(__dirname + '/public'));
@@ -47,4 +53,4 @@ app.listen(app.get('port'));
 console.log('download-net server listening on port: ' + app.get('port'));
 
 // export for testing
-exports = module.exports = app
+exports = module.exports = app;

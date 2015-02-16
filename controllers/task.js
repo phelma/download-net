@@ -1,17 +1,30 @@
 var Task = require('../models/task.js');
+var userController = require('../controllers/user.js');
 
-// /task GET
 exports.getTask = function(req, res) {
-  Task
-    .find()
-    .where('status').exists(false)
-    .limit(1)
-    .exec(function(err, task) {
-      if (err) res.send(err);
+  // Get an unallocated task
+  // TODO priorise
 
-      res.json(task);
-    });
-}
+  var username = req.query.username;
+  var userId   = userController.getUserId(username) || userController.addUser(username).data._id;
+  var userTask = userController.getUserTask(userId);
+
+  if (!userTask){
+    Task
+      .find()
+      .where('status').exists(false)
+      .limit(1)
+      .exec(function(err, task) {
+        if (err) {
+          res.send(err);
+          throw err;
+        }
+        userTask = task.id;
+      });
+  }
+
+  res.json(userTask);
+};
 
 exports.getTaskById = function (req, res) {
   Task
@@ -25,7 +38,6 @@ exports.getTaskById = function (req, res) {
     });
 };
 
-// /task POST
 exports.addTask = function(req, res) {
   // Create new list instance
   var task = new Task();
@@ -41,13 +53,12 @@ exports.addTask = function(req, res) {
     if (err) res.send(err);
 
     res.json({
-      message: 'Added',
+      message: 'Added task',
       data: task
     });
   });
 };
 
-// /task PUT
 exports.updateTask = function(req, res) {
   Task.findById(req.params.taskId || req.body.id, function(err, task) {
     if (err) res.send(err);
@@ -73,7 +84,6 @@ exports.updateTask = function(req, res) {
   });
 };
 
-// /task DELETE
 exports.deleteTask = function(req, res) {
   Task.findByIdAndRemove(req.params.taskId || req.body.id, function(err) {
     if (err) res.send(err);
@@ -84,22 +94,20 @@ exports.deleteTask = function(req, res) {
   });
 };
 
-// /all GET
 exports.getAllTasks = function(req, res) {
-  Task.find(function(err, task) {
+  Task.find(function(err, tasks) {
     if (err) res.send(err);
 
-    res.json(task);
+    res.json(tasks);
   });
 };
 
-// /all DELETE
 exports.deleteAllTasks = function(req, res) {
   Task.remove(function(err) {
     if (err) res.send(err);
 
     res.json({
-      'message': 'all deleted :/'
+      'message': 'all tasks deleted :/'
     });
   });
 };

@@ -11,4 +11,4 @@ var TaskSchema = new mongoose.Schema({
   priority : Number
 });
 
-module.exports = mongoose.model('taskList', TaskSchema);
+module.exports = mongoose.model('task', TaskSchema);
