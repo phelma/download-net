@@ -1,54 +1,49 @@
 var Task = require('../models/task.js');
+var User = require('../models/user.js');
 var userController = require('../controllers/user.js');
 
 exports.getTask = function(req, res) {
   // Get an unallocated task
-  // TODO priorise
-
-  var username = req.query.username;
-  var userId   = userController.getUserId(username) || userController.addUser(username).data._id;
-  var userTask = userController.getUserTask(userId);
-
-  if (!userTask){
-    Task
-      .find()
-      .where('status').exists(false)
-      .limit(1)
-      .exec(function(err, task) {
-        if (err) {
-          res.send(err);
-          throw err;
-        }
-        userTask = task.id;
-      });
-  }
-
-  res.json(userTask);
-};
-
-exports.getTaskById = function (req, res) {
   Task
-    .findById(req.params.taskId, function (err, task) {
+    .findOne()
+    .where('status').exists(false)
+    .exec(function(err, task) {
       if (err) {
-        res
-          .status(404)
-          .send(err);
+        res.send(err);
+        throw err;
       }
       res.json(task);
     });
 };
 
+exports.getTaskById = function (req, res) {
+  Task.findById(req.params.taskId, function (err, task) {
+    if (err) {
+      res.json({error: err});
+    } else if (!task) {
+      res
+        .status(404)
+        .json({error: 'task not found'});
+    } else {
+      var user = '';
+      if (task.user) {
+        User.find({_id: task.user}, function (err, user) {
+          res.json({task: task, user:user});
+        });
+      } else {
+        res.json({task: task});
+    }}
+  });
+};
+
 exports.addTask = function(req, res) {
-  // Create new list instance
   var task = new Task();
 
-  // Set the properties from the POST
   task.type = req.body.type;
   task.script = req.body.script;
   task.manifest = req.body.manifest;
   task.priority = req.body.priority || 1;
 
-  // Save
   task.save(function(err) {
     if (err) res.send(err);
 
@@ -60,12 +55,11 @@ exports.addTask = function(req, res) {
 };
 
 exports.updateTask = function(req, res) {
-  Task.findById(req.params.taskId || req.body.id, function(err, task) {
-    if (err) res.send(err);
+  Task.findById(req.params.taskId, function(err, task) {
+    if (err) {res.send(err);}
 
-    // Update the task
     task.status = req.body.status;
-    task.user = req.body.user;
+    task.user   = req.body.user;
 
     if (req.body.status === 'accepted') {
       task.startTime = new Date();
@@ -74,12 +68,12 @@ exports.updateTask = function(req, res) {
     }
 
     task.save(function(err) {
-      if (err) res.send(err);
-    });
-
-    // Respond
-    res.json({
-      message: 'updated'
+      if (err) {res.send(err);}
+      // Respond
+      res.json({
+        message: 'updated',
+        task: task
+      });
     });
   });
 };

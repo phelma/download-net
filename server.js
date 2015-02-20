@@ -37,15 +37,23 @@ router.route('/task/:taskId')
   .put(taskController.updateTask)
   .delete(taskController.deleteTask);
 
+router.route('/user')
+  .post(userController.addUser);
+
 router.route('/user/all')
   .get(userController.getAllUsers)
   .delete(userController.deleteAllUsers);
+
+router.route('/user/:username')
+  .get(userController.getUser)
+  .delete(userController.deleteUser);
 
 router.route('/');
 
 // Register all our routes with /
 app.use('/', router);
 
+// public directory for client
 app.use(express.static(__dirname + '/public'));
 
 // Start the server
