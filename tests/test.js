@@ -1,9 +1,8 @@
+'use strict';
 var assert    = require('chai').assert,
     expect    = require('chai').expect,
     should    = require('chai').should();
 var request   = require('supertest');
-var supertest = require('supertest');
-// var api = supertest('http://localhost:3000');
 
 var acceptedTaskId = '';
 var userId = '';
@@ -153,10 +152,8 @@ describe('download-net', function() {
         .get('/task')
         .expect(200)
         .end(function(err, res) {
-          // assert.lengthOf(res.body, 1);
           acceptedTaskId = res.body._id;
-          res.body.should.exist();
-          // assert.exists(res.body._id);
+          assert.isDefined(res.body._id);
 
           done();
         });
@@ -184,7 +181,10 @@ describe('download-net', function() {
         .send({
           user: userId
         })
-        .expect(200, done);
+        .expect(200)
+        .end(function (err, res) {
+          done();
+        });
     });
 
     it('/task/:taskId GET shows accepted status', function(done) {
@@ -203,7 +203,7 @@ describe('download-net', function() {
         .get('/user/testuser1')
         .expect(200)
         .end(function (err, res) {
-          assert.equal(res.body.task.user, userId);
+          assert.equal(res.body.tasks[0].user, userId);
           done();
         });
     });

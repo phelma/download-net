@@ -1,3 +1,4 @@
+'use strict';
 // Load required packages
 var express = require('express');
 var mongoose = require('mongoose');
