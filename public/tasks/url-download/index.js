@@ -6,9 +6,6 @@ var fs = require('fs'),
 
 // log.setLevel('warn');
 
-
-
-
 var tsvJSON = function (tsv, headers, callback) {
   var result = [];
   var lines = tsv.split('\n');
