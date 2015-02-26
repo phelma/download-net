@@ -1,7 +1,7 @@
 'use strict';
 // Config
-var timeout = 4000; // ms
-var paralell = 70;
+var timeout = 5000; // ms
+var paralell = 20;
 var inFile = 'head1k.txt';
 
 // Requirements
@@ -43,8 +43,19 @@ var counter = {
   batch: 0,
   batchUp: function () {
     this.batch ++;
+  },
+  timer: {
+    start: function () {
+      this.startTime = new Date().getTime();
+    },
+    elapsed: function () {
+      this.currentTime = new Date().getTime();
+      return this.currentTime = this.startTime;
+    }
   }
 };
+
+counter.timer.start();
 
 // Converts tsv to JSON
 var tsvJSON = function (tsv, headers) {
@@ -53,8 +64,9 @@ var tsvJSON = function (tsv, headers) {
 
   var obj = {};
   var currentLine = [];
-  for (var i = 1; i< lines.length - 1; i++) {
+  for (var i = 0; i < lines.length - 2; i++) {
     currentLine = lines[i].split('\t');
+
     filesArray.push({
       'filename': currentLine[0],
       'url': currentLine[1]
@@ -63,29 +75,24 @@ var tsvJSON = function (tsv, headers) {
   ee.emit('count');
 };
 
-// cuts off the next avaliable batch and calls getSaveFile() on them
+// gets the next file, triggered by the counter event
 var getNextBatch = function(){
   console.log('Active: ' + counter.active());
-  console.log('Started: ' + counter.count + ', Complete: ' + counter.complete + ', Errors: ' + counter.errors);
-  if (counter.active() === 0) {
-    // var start = counter.batch * paralell;
-    // var end   = start + paralell - 1;
-    // console.log('Batch from: ' + start + ' end: ' + end);
-    // console.log('Filesarray.length: ' + filesArray.length);
-    var batchList = filesArray.splice(0, paralell);
-    // console.log('BatchList.length: ' + batchList.length);
-    console.log('Batch ' + counter.batch);
-    var t = 0;
-    batchList.forEach(function (item) {
-      setTimeout(getSaveFile, t++ * 50, item);
-      // getSaveFile(item);
-    });
-    counter.batchUp();
+  console.log('Started: ' + counter.count + ', Complete: ' + counter.complete + ', Errors: ' + counter.errors + ' Time: ' + counter.timer.elapsed());
+  if (counter.active() < paralell) {
+    var item = filesArray.shift();
+    if (item) {
+      getSaveFile(item);
+    }
   }
 };
 
 // Requests URL and saves the file
 var getSaveFile = function (params) {
+  if (!params) {
+    console.log('cant get undefined');
+    return;
+  }
   console.log('Requesting: ' + params.filename +'.jpg' + '\tfrom: ' + params.url);
   counter.request(params.filename);
   request
