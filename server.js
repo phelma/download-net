@@ -55,7 +55,7 @@ router.route('/');
 app.use('/', router);
 
 // public directory for client
-app.use(express.static(__dirname + '/public'));
+app.use('/public', express.static(__dirname + '/public'));
 
 // Start the server
 app.listen(app.get('port'));
