@@ -2,11 +2,11 @@
 // Config
 var timeout = 5000; // ms
 var paralell = 20;
-var inFile = 'head1k.txt';
 
 // Requirements
 var fs = require('fs');
 var events = require('events');
+var path = require('path');
 
 // NPM Requirements
 var request = require('request');
@@ -15,6 +15,7 @@ var request = require('request');
 var ee = new events.EventEmitter();
 var createdDirs = [];
 var filesArray = [];
+var outDir = '';
 
 var counter = {
   // Keep track of things
@@ -50,7 +51,7 @@ var counter = {
     },
     elapsed: function () {
       this.currentTime = new Date().getTime();
-      return this.currentTime = this.startTime;
+      return (this.currentTime - this.startTime) / 1000;
     }
   }
 };
@@ -78,7 +79,7 @@ var tsvJSON = function (tsv, headers) {
 // gets the next file, triggered by the counter event
 var getNextBatch = function(){
   console.log('Active: ' + counter.active());
-  console.log('Started: ' + counter.count + ', Complete: ' + counter.complete + ', Errors: ' + counter.errors + ' Time: ' + counter.timer.elapsed());
+  console.log('Started: ' + counter.count + ', Complete: ' + counter.complete + ', Errors: ' + counter.errors + ' Time: ' + counter.timer.elapsed() + 's');
   if (counter.active() < paralell) {
     var item = filesArray.shift();
     if (item) {
@@ -129,14 +130,14 @@ var saveResp = function (resp, params) {
   if (createdDirs.indexOf(dirName) === -1) {
     try {
       createdDirs.push(dirName);
-      fs.mkdirSync('out/' + dirName);
+      fs.mkdirSync(path.join(outDir, dirName));
     } catch (e) {
-      console.log("Error: " + e);
+      console.log('Error: ' + e);
     }
   }
   // writestream
   var wstream = fs
-    .createWriteStream('out/' + dirName + '/' + params.filename + '.jpg')
+    .createWriteStream(path.join(outDir, dirName, params.filename + '.jpg'))
     .on('error', function (err) {
       console.log('ERROR: ' + err);
       resp.read();
@@ -147,11 +148,24 @@ var saveResp = function (resp, params) {
   resp.pipe(wstream);
 };
 
-// Read the file
-fs.readFile(inFile, 'utf8', function (err, data) {
-  if (err) throw err;
-  var headers = ['filename', 'url'];
-  tsvJSON(data, headers);
-});
+module.exports.executeTask = function (inFile, out, callback) {
+  outDir = out; // set outDir global
+  var file = inFile || './head100.txt'; // for testing
+  counter.timer.start();
+  // Read the file
+  fs.readFile(file, 'utf8', function (err, data) {
+    if (err) {throw err;}
+    var headers = ['filename', 'url'];
+    tsvJSON(data, headers);
+  });
+
+  var checkDone = function () {
+    if (counter.count > 0 && counter.active() < 1) {
+        console.log('Done');
+        callback();
+    }
+  };
+  ee.on('count', checkDone);
+};
 
 ee.on('count', getNextBatch);
