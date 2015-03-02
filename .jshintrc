@@ -87,6 +87,8 @@
         "require"   : false,
         "console"   : false,
         "describe"  : false,
-        "it"        : false
+        "it"        : false,
+        "module"    : false,
+        "exports"   : false
     }        // additional predefined global variables
 }
