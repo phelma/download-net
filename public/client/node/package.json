@@ -11,6 +11,8 @@
   "dependencies": {
     "commander": "^2.6.0",
     "inquirer": "^0.8.0",
+    "mkdirp": "^0.5.0",
+    "npm": "^2.6.0",
     "superagent": "^0.21.0"
   }
 }

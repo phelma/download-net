@@ -1,15 +1,15 @@
 'use strict';
 
-var lib      = require('./lib.js');
-var program  = require('commander');
 var inquirer = require('inquirer');
 var request  = require('superagent');
+var execute  = require('./execute.js');
 
 var uri = 'http://127.0.0.1:3000';
 var retryInterval = 5; //seconds
 
 var username = '';
 var userId = '';
+var task = {};
 
 var getUsername = function() {
   console.log('Please enter a username');
@@ -81,6 +81,7 @@ var getTask = function(username) {
         setTimeout(userLogic, retryInterval * 1000, username);
       } else {
         console.log('Got task: ' + res.body._id);
+        task = res.body;
         acceptTask(res.body);
       }
     });
@@ -106,11 +107,19 @@ var acceptTask = function(task) {
 
 var executeTask = function(task) {
   console.log('Executing task: ' + task._id);
-  console.log('EXECUTING ... TODO, currently just waits 5s');
-  setTimeout(taskComplete, 5000, task);
+  console.log(JSON.stringify({task: task}, 0, 2));
+  var opts = {
+    'manifestUrl': task.manifest,
+    'taskLoc'    : task.script,
+    'taskName'   : task.type
+  };
+  execute.downloadAndExecute(opts, taskComplete);
+
+  // console.log('EXECUTING ... TODO, currently just waits 5s');
+  // setTimeout(taskComplete, 5000, task);
 };
 
-var taskComplete = function(task) {
+var taskComplete = function() {
   console.log('Task complete:  ' + task._id);
   console.log('Updating task on server');
   request
