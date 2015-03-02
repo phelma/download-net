@@ -1,11 +1,17 @@
 'use strict';
 var User = require('../models/user.js');
 var Task = require('../models/task.js');
+var mongoose = require('mongoose');
 
 exports.getUser = function(req, res) {
-  User.findOne({
-    username: req.params.username
-  }, function(err, user) {
+  var isId = mongoose.Types.ObjectId.isValid(req.params.username);
+  var query = {};
+  if (isId) {
+    query = {_id: req.params.username};
+  } else {
+    query = {username: req.params.username};
+  }
+  User.findOne(query, function(err, user) {
     if (err) {
       res.json({
         error: err
