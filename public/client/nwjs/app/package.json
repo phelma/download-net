@@ -1,0 +1,15 @@
+{
+  "name": "downloadnet",
+  "main": "index.html",
+  "version": "0.0.1",
+  "single-instance": true,
+  "window": {
+    "title": "downloadnet",
+    "width": 450,
+    "height": 650,
+    "min_width": 450,
+    "min_height": 650,
+    "toolbar": false
+  },
+  "chromium-args": "--child-clean-exit"
+}

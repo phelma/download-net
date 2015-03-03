@@ -1,0 +1,87 @@
+@media (min-width: 768px) {
+    .container {
+        max-width: 730px
+    }
+}
+@media screen and (min-width: 768px) {
+    .header, .marketing, .footer {
+        padding-right: 0;
+        padding-left: 0
+    }
+    .header {
+        margin-bottom: 30px
+    }
+    .jumbotron {
+        border-bottom: 0
+    }
+}
+body {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    height: 95vh
+}
+.header, .marketing, .footer {
+    padding-right: 15px;
+    padding-left: 15px
+}
+.header {
+    border-bottom: 1px solid #e5e5e5
+}
+.header h3 {
+    padding-bottom: 19px;
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: 40px
+}
+.footer {
+    padding-top: 19px;
+    color: #777;
+    border-top: 1px solid #e5e5e5
+}
+@media (min-width: 768px) {
+    .container {
+        max-width: 730px
+    }
+}
+.container-narrow>hr {
+    margin: 30px 0
+}
+.jumbotron {
+    border-bottom: 1px solid #e5e5e5
+}
+.jumbotron .btn {
+    padding: 14px 30px;
+    font-size: 21px
+}
+.marketing {
+    margin: 40px 0
+}
+.marketing p+h4 {
+    margin-top: 28px
+}
+@media screen and (min-width: 768px) {
+    .header, .marketing, .footer {
+        padding-right: 0;
+        padding-left: 0
+    }
+    .header {
+        margin-bottom: 30px
+    }
+    .jumbotron {
+        border-bottom: 0
+    }
+}
+.console {
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    padding: 8px 10px;
+    font-family: "source code pro" monospace;
+    font-size: 12px;
+    float: left;
+    max-height: 100%;
+    width: 100%;
+    overflow-y: auto
+}
+.console p {
+    margin: 0 0 2px
+}
