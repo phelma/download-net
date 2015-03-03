@@ -1,0 +1,3 @@
+[submodule "public/tasks/url-download"]
+	path = public/tasks/url-download
+	url = git@github.com:phelma/url-download
