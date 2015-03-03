@@ -1,8 +1,8 @@
 'use strict';
 
 var inquirer = require('inquirer');
-var request  = require('superagent');
-var execute  = require('./execute.js');
+var request = require('superagent');
+var execute = require('./execute.js');
 
 var uri = 'http://127.0.0.1:3000';
 var retryInterval = 5; //seconds
@@ -23,6 +23,7 @@ var getUsername = function() {
   });
 };
 
+// Checks if a user exists and if they have any tasks on the go.
 var getUserTasks = function(username) {
   checkUser(username, function(resp) {
     if (resp.user) {
@@ -42,6 +43,7 @@ var getUserTasks = function(username) {
   });
 };
 
+// Checks if a user exists
 var checkUser = function(username, callback) {
   console.log('\nChecking user ' + username);
   request
@@ -55,12 +57,14 @@ var checkUser = function(username, callback) {
     });
 };
 
-var createUser = function (username) {
+var createUser = function(username) {
   console.log('Creating user ' + username);
   request
     .post(uri + '/user')
     .type('form')
-    .send({username: username})
+    .send({
+      username: username
+    })
     .end(function(res) {
       if (res.body.error) {
         throw res.body.error;
@@ -107,25 +111,32 @@ var acceptTask = function(task) {
 
 var executeTask = function(task) {
   console.log('Executing task: ' + task._id);
-  console.log(JSON.stringify({task: task}, 0, 2));
+  console.log(JSON.stringify({
+    task: task
+  }, 0, 2));
   var opts = {
     'manifestUrl': task.manifest,
-    'taskLoc'    : task.script,
-    'taskName'   : task.type
+    'taskLoc': task.script,
+    'taskName': task.type
   };
   execute.downloadAndExecute(opts, taskComplete);
 
+  // FOR TESTING
   // console.log('EXECUTING ... TODO, currently just waits 5s');
   // setTimeout(taskComplete, 5000, task);
 };
 
+// Tells the server that we are done and then starts again
 var taskComplete = function() {
   console.log('Task complete:  ' + task._id);
   console.log('Updating task on server');
+
   request
     .put(uri + '/task/' + task._id)
     .type('form')
-    .send({status: 'complete'})
+    .send({
+      status: 'complete'
+    })
     .end(function(res) {
       if (res.body.error) {
         throw res.body.error;

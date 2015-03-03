@@ -14,17 +14,11 @@ module.exports.downloadAndExecute = function (opts, callback) {
   var taskLoc          = opts.taskLoc;
   var taskName         = opts.taskName;
 
-  var ensureDirs = function (dirsArray) {
-    dirsArray.forEach(function (item) {
-      mkdirp.sync(item);
-    });
-  };
-
   var downloadManifest = function () {
     mkdirp.sync('manifests'); // ensure manifests dir exists
 
     var ws = fs
-      .createWriteStream('manifests' + path.sep + manifestFileName)
+      .createWriteStream(path.join('manifests', manifestFileName))
       .on('finish', downloadTask);
 
     // Download the file
@@ -33,13 +27,15 @@ module.exports.downloadAndExecute = function (opts, callback) {
 
   var downloadTask = function (err) {
     if (err) {console.log ('Error: ' + err);}
+
     // load npm
     npm.load(null, function () {
-      console.log('npm ls');
+
+      // list npm packages
       npm.commands.ls(['parseable'], function (data) {
         console.log(data);
-        console.log('Listed?');
-        console.log('NPM update ' + taskLoc);
+
+        // npm install the package
         npm.commands.install([taskLoc], execute);
       });
     });

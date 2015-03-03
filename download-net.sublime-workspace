@@ -220,28 +220,91 @@
 	"buffers":
 	[
 		{
-			"file": "public/tasks/url-download/index.js",
+			"file": "public/client/node/index.js",
 			"settings":
 			{
-				"buffer_size": 4242,
+				"buffer_size": 3499,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "public/client/node/execute.js",
+			"file": "package.json",
 			"settings":
 			{
-				"buffer_size": 1997,
+				"buffer_size": 808,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "server/config.js",
+			"settings":
+			{
+				"buffer_size": 310,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "'use strict';\n// Deps\nvar npm     = require('npm');\nvar request = require('request');\nvar path    = require('path');\nvar fs      = require('fs');\nvar mkdirp  = require('mkdirp');\n\nmodule.exports.downloadAndExecute = function (opts, callback) {\n  var opts = opts || {};\n  var manifestUrl      = opts.manifestUrl;\n  var manifestFileName = path.basename(manifestUrl); // e.g. 'test-manifest-2'\n  var manifestDir      = path.basename(manifestFileName, path.extname(manifestFileName)); // e.g. 'test-manifest'\n  var taskLoc          = opts.taskLoc;\n  var taskName         = opts.taskName;\n\n  var ensureDirs = function (dirsArray) {\n    dirsArray.forEach(function (item) {\n      mkdirp.sync(item);\n    });\n  };\n\n  var downloadManifest = function () {\n    mkdirp.sync('manifests'); // ensure manifests dir exists\n\n    var ws = fs\n      .createWriteStream('manifests' + path.sep + manifestFileName)\n      .on('finish', downloadTask);\n\n    // Download the file\n    request(manifestUrl).pipe(ws);\n  };\n\n  var downloadTask = function (err) {\n    if (err) {console.log ('Error: ' + err);}\n    // load npm\n    npm.load(null, function () {\n      console.log('npm ls');\n      npm.commands.ls(['parseable'], function (data) {\n        console.log(data);\n        console.log('Listed?');\n        console.log('NPM update ' + taskLoc);\n        npm.commands.install([taskLoc], execute);\n      });\n    });\n  };\n\n  var execute = function (err) {\n    if (err) {console.log ('Error: ' + err);}\n\n    // load the *newly downloaded* task package\n    console.log('Loading task: ' + taskName);\n    var task = require(taskName);\n\n    // Execute the urlDownload\n    var inFile = path.join('manifests', manifestFileName);\n    var outDir = path.join('output', taskName, manifestDir);\n\n    mkdirp(outDir); // ensure outDir dir exists\n    console.log('Executing task: ' + task + ', with manifest: ' + inFile + ', to: ' + outDir);\n    task.executeTask(inFile, outDir, callback);\n  };\n  downloadManifest();\n};\n",
+			"file": "public/client/node/execute.js",
+			"file_size": 1971,
+			"file_write_time": 130698561490000000,
+			"settings":
+			{
+				"buffer_size": 1971,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "README.md",
+			"settings":
+			{
+				"buffer_size": 1082,
 				"line_ending": "Unix"
 			}
 		}
 	],
-	"build_system": "",
+	"build_system": "Packages/Nodejs/Nodejs.sublime-build",
 	"command_palette":
 	{
 		"height": 400.0,
 		"selected_items":
 		[
+			[
+				"tra",
+				"Trailing Spaces: Delete Trailing Spaces"
+			],
+			[
+				"omn",
+				"OmniMarkupPreviewer: Preview Current Markup in Browser"
+			],
+			[
+				"smark",
+				"Set Syntax: Markdown"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"sett",
+				"Preferences: Settings - User"
+			],
+			[
+				"for",
+				"Format: Javascript"
+			],
+			[
+				"pret",
+				"HTMLPrettify"
+			],
+			[
+				"pre",
+				"Preferences: Settings - User"
+			],
+			[
+				"ssjs",
+				"Set Syntax: JavaScript Next"
+			],
 			[
 				"lint",
 				"SublimeLinter: Lint This View"
@@ -253,10 +316,6 @@
 			[
 				"ssjson",
 				"Set Syntax: JSON"
-			],
-			[
-				"ssjs",
-				"Set Syntax: JavaScript Next"
 			],
 			[
 				"fix",
@@ -271,16 +330,8 @@
 				"Set Syntax: JavaScript Next"
 			],
 			[
-				"for",
-				"Format: Javascript"
-			],
-			[
 				"lin",
 				"SublimeLinter: Lint This View"
-			],
-			[
-				"pret",
-				"HTMLPrettify"
 			],
 			[
 				"fir",
@@ -288,10 +339,6 @@
 			],
 			[
 				"om",
-				"OmniMarkupPreviewer: Preview Current Markup in Browser"
-			],
-			[
-				"omn",
 				"OmniMarkupPreviewer: Preview Current Markup in Browser"
 			],
 			[
@@ -311,16 +358,8 @@
 				"Run CSScomb"
 			],
 			[
-				"tra",
-				"Trailing Spaces: Delete Trailing Spaces"
-			],
-			[
 				"settings",
 				"Preferences: Settings - Default"
-			],
-			[
-				"insta",
-				"Package Control: Install Package"
 			],
 			[
 				"sspssh",
@@ -506,47 +545,48 @@
 	[
 		"/Users/phelm/Code/download-net",
 		"/Users/phelm/Code/download-net/public",
-		"/Users/phelm/Code/download-net/public/client",
 		"/Users/phelm/Code/download-net/public/client/node",
-		"/Users/phelm/Code/download-net/public/client/node/node_modules/url-download"
+		"/Users/phelm/Code/download-net/public/manifests",
+		"/Users/phelm/Code/download-net/public/tasks"
 	],
 	"file_history":
 	[
+		"/Users/phelm/Code/download-net/package.json",
+		"/Users/phelm/Code/download-net/.gitignore",
+		"/Users/phelm/Code/download-net/head100.txt",
+		"/Users/phelm/Code/download-net/public/tasks/test-script.js",
+		"/Users/phelm/Code/download-net/config.js",
+		"/Users/phelm/Code/download-net/public/client/node/package.json",
+		"/Users/phelm/Code/download-net/public/client/node/execute.js",
+		"/Users/phelm/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/Users/phelm/Code/download-net/public/tasks/url-download/index.js",
+		"/Users/phelm/Code/download-net/controllers/task.js",
 		"/Users/phelm/Code/download-net/public/client/node/node_modules/url-download/index.js",
+		"/Users/phelm/Code/download-net/controllers/user.js",
+		"/Users/phelm/Code/download-net/.jshintrc",
 		"/Users/phelm/Code/download-net/public/client/Scratch/package.json",
 		"/Users/phelm/Code/download-net/public/client/Scratch/head10.txt",
-		"/Users/phelm/Code/download-net/public/client/node/execute.js",
 		"/Users/phelm/Code/download-net/public/client/node/index.js",
-		"/Users/phelm/Code/download-net/public/tasks/url-download/index.js",
 		"/Users/phelm/Code/download-net/public/client/node/lib.js",
 		"/Users/phelm/Code/download-net/public/client/Scratch/index.js",
-		"/Users/phelm/Code/download-net/.jshintrc",
 		"/Users/phelm/Code/download-net/public/client/Scratch/node_modules/url-download/index.js",
 		"/Users/phelm/Code/download-net/public/tasks/url-download/.gitignore",
 		"/Users/phelm/Code/download-net/public/client/Scratch/test2.js",
-		"/Users/phelm/Code/download-net/public/tasks/test-script.js",
 		"/Users/phelm/Scratch/test2.js",
 		"/Users/phelm/Scratch/index.js",
 		"/Users/phelm/Code/download-net/public/tasks/url-download/head10.txt",
 		"/Users/phelm/Scratch/head10.txt",
 		"/Users/phelm/Code/download-net/download-net.sublime-project",
-		"/Users/phelm/Code/download-net/public/client/node/package.json",
 		"/Users/phelm/.ssh/known_hosts",
 		"/Users/phelm/Code/download-net/server.js",
-		"/Users/phelm/Code/download-net/controllers/user.js",
-		"/Users/phelm/Code/download-net/controllers/task.js",
 		"/Users/phelm/Code/download-net/models/task.js",
 		"/Users/phelm/Code/download-net/tests/test.js",
-		"/Users/phelm/Code/download-net/.gitignore",
 		"/Users/phelm/Code/image-downloader/program-sml.js",
 		"/Users/phelm/Code/image-downloader/fall11/synsets.txt",
-		"/Users/phelm/Code/download-net/config.js",
 		"/Users/phelm/Code/download-net/models/user.js",
 		"/Users/phelm/.zshrc",
 		"/Users/phelm/.bashrc",
 		"/Users/phelm/.jshintrc.json",
-		"/Users/phelm/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
-		"/Users/phelm/Code/download-net/package.json",
 		"/Users/phelm/Code/download-net/public/client/gulp-webapp/app/index.html",
 		"/Users/phelm/Code/download-net/public/client/gulp-webapp/gulpfile.js",
 		"/Users/phelm/Code/download-net/public/client/gulp-webapp/app/scripts/main.js",
@@ -638,8 +678,7 @@
 		"/Users/phelm/Code/Desktop2/frontend/main/index.html",
 		"/Users/phelm/Code/Desktop2/frontend/main/script/settings/settingsview.js",
 		"/Users/phelm/Code/Desktop2/frontend/main/script/main.js",
-		"/Users/phelm/Code/Desktop2/frontend/main/script/navigation/navigationcontroller.js",
-		"/Users/phelm/.zpreztorc"
+		"/Users/phelm/Code/Desktop2/frontend/main/script/navigation/navigationcontroller.js"
 	],
 	"find":
 	{
@@ -658,6 +697,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"userLogic",
+			"downloadTask",
 			"fileName",
 			"done",
 			"strict",
@@ -760,24 +801,24 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "public/tasks/url-download/index.js",
+					"file": "public/client/node/index.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4242,
+						"buffer_size": 3499,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4173,
-								4173
+								3499,
+								3499
 							]
 						],
 						"settings":
@@ -790,21 +831,41 @@
 								"bh_default_open",
 								"bh_default_close",
 								"bh_default_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
 								"bh_square",
 								"bh_square_center",
 								"bh_square_open",
 								"bh_square_close",
 								"bh_square_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
 								"bh_double_quote",
 								"bh_double_quote_center",
 								"bh_double_quote_open",
 								"bh_double_quote_close",
 								"bh_double_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
 								"bh_curly",
 								"bh_curly_center",
 								"bh_curly_open",
@@ -815,31 +876,11 @@
 								"bh_c_define_open",
 								"bh_c_define_close",
 								"bh_c_define_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
 								"bh_angle",
 								"bh_angle_center",
 								"bh_angle_open",
 								"bh_angle_close",
-								"bh_angle_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content"
+								"bh_angle_content"
 							],
 							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai Extended.tmTheme",
 							"syntax": "Packages/JavaScriptNext - ES6 Syntax/JavaScriptNext.tmLanguage",
@@ -847,7 +888,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1051.0,
+						"translation.y": 2014.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
@@ -855,19 +896,19 @@
 				},
 				{
 					"buffer": 1,
-					"file": "public/client/node/execute.js",
+					"file": "package.json",
 					"semi_transient": true,
 					"settings":
 					{
-						"buffer_size": 1997,
+						"buffer_size": 808,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1581,
-								1581
+								0,
+								0
 							]
 						],
 						"settings":
@@ -880,21 +921,41 @@
 								"bh_default_open",
 								"bh_default_close",
 								"bh_default_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
 								"bh_square",
 								"bh_square_center",
 								"bh_square_open",
 								"bh_square_close",
 								"bh_square_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
 								"bh_double_quote",
 								"bh_double_quote_center",
 								"bh_double_quote_open",
 								"bh_double_quote_close",
 								"bh_double_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
 								"bh_curly",
 								"bh_curly_center",
 								"bh_curly_open",
@@ -905,31 +966,101 @@
 								"bh_c_define_open",
 								"bh_c_define_close",
 								"bh_c_define_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content"
+							],
+							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai Extended.tmTheme",
+							"syntax": "Packages/JavaScript/JSON.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "server/config.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 310,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								310,
+								310
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
 								"bh_unmatched",
 								"bh_unmatched_center",
 								"bh_unmatched_open",
 								"bh_unmatched_close",
 								"bh_unmatched_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
 								"bh_round",
 								"bh_round_center",
 								"bh_round_open",
 								"bh_round_close",
 								"bh_round_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
 								"bh_regex",
 								"bh_regex_center",
 								"bh_regex_open",
 								"bh_regex_close",
-								"bh_regex_content"
+								"bh_regex_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content"
 							],
 							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai Extended.tmTheme",
 							"syntax": "Packages/JavaScriptNext - ES6 Syntax/JavaScriptNext.tmLanguage",
@@ -937,10 +1068,194 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 71.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 3,
+					"file": "public/client/node/execute.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1971,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								481,
+								481
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content"
+							],
+							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai Extended.tmTheme",
+							"syntax": "Packages/JavaScriptNext - ES6 Syntax/JavaScriptNext.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "README.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1082,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								124,
+								124
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content"
+							],
+							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai Extended.tmTheme",
+							"syntax": "Packages/Markdown/Markdown.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
 					"type": "text"
 				}
 			]
@@ -963,11 +1278,18 @@
 				0,
 				1,
 				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
 			]
 		],
 		"cols":
 		[
 			0.0,
+			0.5,
 			1.0
 		],
 		"rows":

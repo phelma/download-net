@@ -1,7 +1,7 @@
 # download-net
 A friendly 'botnet' for distributing and carrying out tasks.
 
-Made up of 3 parts, Server, Client and Tasks
+Made up of **Server**, **Client** and **Task**s
 
 ## Tasks
 Each 'task' object is composed of
@@ -27,6 +27,7 @@ Contains a databse of tasks, tasks look like this
   "user": "54f47d836f3cbd562ade7a0e"
 }
 ```
+Allocates tasks (upon request) to the client
 
 
 ## Client

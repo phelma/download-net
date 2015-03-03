@@ -5,7 +5,7 @@ var userController = require('../controllers/user.js');
 
 exports.getTask = function(req, res) {
   // Get an unallocated task
-  Task // 
+  Task
     .findOne({
       status: ''
     })
