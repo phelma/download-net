@@ -19,11 +19,11 @@ var getUsername = function() {
     message: 'username',
   }], function(answers) {
     username = answers.username;
-    userLogic(answers.username);
+    getUserTasks(answers.username);
   });
 };
 
-var userLogic = function(username) {
+var getUserTasks = function(username) {
   checkUser(username, function(resp) {
     if (resp.user) {
       userId = resp.user._id;
@@ -78,7 +78,7 @@ var getTask = function(username) {
       if (res.body.error) {
         console.log('Could not get task, probably none avaliable');
         console.log('Try again in ' + retryInterval + 's');
-        setTimeout(userLogic, retryInterval * 1000, username);
+        setTimeout(getUserTasks, retryInterval * 1000, username);
       } else {
         console.log('Got task: ' + res.body._id);
         task = res.body;
@@ -130,7 +130,7 @@ var taskComplete = function() {
       if (res.body.error) {
         throw res.body.error;
       } else {
-        userLogic(username);
+        getUserTasks(username);
       }
     });
 };

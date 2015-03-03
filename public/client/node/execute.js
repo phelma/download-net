@@ -62,5 +62,3 @@ module.exports.downloadAndExecute = function (opts, callback) {
   };
   downloadManifest();
 };
-
-// module.exports.downloadAndExecute();
