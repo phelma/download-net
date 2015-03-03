@@ -4,10 +4,9 @@
   "description": "distributed bulk downloader",
   "main": "server.js",
   "scripts": {
-    "start": "NODE_ENV=development node_modules/nodemon/bin/nodemon.js server.js --watch controllers models server.js",
-    "test": "NODE_ENV=test node_modules/mocha/bin/mocha tests/**.js",
-    "debug": "NODE_ENV=development node-debug server.js",
-    "lint": "jshint *.js controllers/*.js models/*.js tests/*.js"
+    "start": "NODE_ENV=development node_modules/nodemon/bin/nodemon.js server/server.js --watch server/controllers server/models server/server.js",
+    "test": "NODE_ENV=test node_modules/mocha/bin/mocha server/tests/**.js",
+    "debug": "NODE_ENV=development node-debug server/server.js"
   },
   "author": "",
   "license": "ISC",
